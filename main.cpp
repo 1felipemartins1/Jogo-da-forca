@@ -2,6 +2,15 @@
 #include <string>
 #include <vector>
 
+class Letratentada : public std::exception
+{
+public:
+    const char *what() const throw()
+    {
+        return "Você já tentou essa letra, tente outra!\t";
+    }
+};
+
 class Pessoa
 {
 private:
@@ -38,7 +47,7 @@ int main()
 {
     std::string resposta;
     std::cout << "Insira uma palavra" << std::endl;
-    std::cin >> resposta; // coletar a palavra para adivinharmos
+    std::getline(std::cin, resposta); // coletar a palavra para adivinharmos
     int tamanho = resposta.length();
     int acertos = 0;
     std::vector<char> frase;
@@ -57,30 +66,66 @@ int main()
 
         std::cout << "Digite uma letra" << std::endl;
         std::cin >> letra;
-
-        if (tentativas[letra - 'a'])
+       try
+{
+    if (tentativas[letra - 'a'])
+    {
+        throw Letratentada();
+    }
+    else
+    {
+        tentativas[letra - 'a'] = true; // registra a letra
+        for (int i = 0; i < tamanho; i++)
         {
-            std::cout << "Você já tentou essa letra. Tente outra." << std::endl;
-            continue;
+            if (frase[i] == letra)
+            {
+                acertos = acertos + 1;
+                acertou_a_letra = true;
+                std::cout << "Acertou" << std::endl;
+            }
         }
-        else
+
+        if (!acertou_a_letra)
         {
-            tentativas[letra - 'a'] = true; // registra a letra
+            felipe.Erro();
+        }
+    }
+}
+catch (const Letratentada &e)
+{
+    std::cout << "ERRO: " << e.what() << std::endl;
+
+    while (true)
+    {
+        std::cin >> letra;
+        if (tentativas[letra - 'a'] == false)
+        {
+            tentativas[letra - 'a'] = true;
+            bool acertou_nova_letra = false;
+
             for (int i = 0; i < tamanho; i++)
             {
                 if (frase[i] == letra)
                 {
                     acertos = acertos + 1;
-                    acertou_a_letra = true;
+                    acertou_nova_letra = true;
                     std::cout << "Acertou" << std::endl;
                 }
             }
 
-            if (!acertou_a_letra)
+            if (!acertou_nova_letra)
             {
                 felipe.Erro();
             }
+
+            break; // Sai do loop se a letra for válida
         }
+        else
+        {
+            std::cout << "Você já tentou essa letra, por favor, tente outra" << std::endl;
+        }
+    }
+}
     }
 
     if (acertos == tamanho)
