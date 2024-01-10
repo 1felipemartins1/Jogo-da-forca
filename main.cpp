@@ -24,11 +24,7 @@ int main()
     {
         char letra;
         bool acertou_a_letra = false;
-        for (char caractere : resposta_formatada) // armazenar a palavra em um vector para poder manipular de forma mais fácil
-        {
-            frase.push_back(caractere);
-        }
-        
+        frase = conversor_vec_char(resposta_formatada);
         std::cout << "Digite uma letra" << std::endl;
         std::cin >> letra;
         try
