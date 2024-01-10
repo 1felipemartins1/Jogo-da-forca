@@ -38,3 +38,14 @@ void Pessoa::LimpaTela(){
     system("clear");
 #endif
 }
+
+
+std::string conversor_min(const std::string & entrada){
+    std::string result; 
+    for(char x : entrada){
+        if(x != ' '){
+            result += std::tolower(x); 
+        }
+    }
+    return result;
+}
