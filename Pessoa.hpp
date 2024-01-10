@@ -31,5 +31,6 @@ public:
 
 std::string conversor_min(const std::string & entrada);
 
+std:: vector<char> conversor_vec_char(const std::string & entrad); 
 
 #endif  
