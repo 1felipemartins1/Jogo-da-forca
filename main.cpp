@@ -4,14 +4,17 @@
 #include <cstdlib> 
 #include "Pessoa.hpp"
 
+//g++ -o arq Pessoa.hpp Pessoa.cpp main.cpp 
+
 int main()
 {
     std::string resposta;
     std::cout << "Insira uma palavra" << std::endl;
     std::getline(std::cin, resposta); // coletar a palavra para adivinharmos
-    int tamanho = resposta.length();
+    std::string resposta_formatada = conversor_min(resposta);
+    int tamanho = resposta_formatada.length();
     int acertos = 0;
-    std::vector<char> frase;
+    std::vector<char> frase; //vetor que contem a resposta 
     Pessoa felipe;
     std::vector<bool> tentativas(26, false); // guarda quais letras foram tentadas
     felipe.LimpaTela(); 
@@ -21,7 +24,7 @@ int main()
     {
         char letra;
         bool acertou_a_letra = false;
-        for (char caractere : resposta) // armazenar a palavra em um vector para poder manipular de forma mais fácil
+        for (char caractere : resposta_formatada) // armazenar a palavra em um vector para poder manipular de forma mais fácil
         {
             frase.push_back(caractere);
         }
@@ -40,16 +43,19 @@ int main()
                 for (int i = 0; i < tamanho; i++)
                 {
                     if (frase[i] == letra)
-                    {
+                    { 
+                        felipe.LimpaTela();
                         acertos = acertos + 1;
                         acertou_a_letra = true;
-                        std::cout << "Acertou" << std::endl;
+                        std::cout << "Acertou" << std::endl; 
                     }
                 }
 
                 if (!acertou_a_letra)
-                {
-                    felipe.Erro();
+                {   
+                    felipe.LimpaTela();
+                    felipe.Erro(); 
+                
                 }
             }
         }
@@ -68,7 +74,8 @@ int main()
                     for (int i = 0; i < tamanho; i++)
                     {
                         if (frase[i] == letra)
-                        {
+                        {   
+                            felipe.LimpaTela();
                             acertos = acertos + 1;
                             acertou_nova_letra = true;
                             std::cout << "Acertou" << std::endl;
@@ -77,6 +84,7 @@ int main()
 
                     if (!acertou_nova_letra)
                     {
+                        felipe.LimpaTela();
                         felipe.Erro();
                     }
 
