@@ -48,4 +48,16 @@ std::string conversor_min(const std::string & entrada){
         }
     }
     return result;
+} 
+
+
+std::vector<char> conversor_vec_char(const std::string & entrada){
+    std::vector<char> resultado;  
+    int tamanho = entrada.length();
+    for (char caractere : entrada) 
+        {
+            resultado.push_back(caractere);
+        }
+    return resultado; 
+
 }
