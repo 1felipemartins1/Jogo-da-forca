@@ -4,7 +4,9 @@
 #include <iostream>
 #include <string>
 #include <vector>  
-#include <cstdlib> //biblioteca para limpar a tela  
+#include <cstdlib> //biblioteca para limpar a tela   
+#include <cctype>
+
 class Letratentada : public std::exception
 {
 public:
@@ -26,5 +28,8 @@ public:
 
     void LimpaTela();
 };
+
+std::string conversor_min(const std::string & entrada);
+
 
 #endif  
